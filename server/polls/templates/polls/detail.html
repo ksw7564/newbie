@@ -1,0 +1,14 @@
+<h1> {{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message >></strong></p>{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}
+    <!-- input type ="text" name="uri" type 속성은 인풋의 형태 타입 name 속성은 데이터가 서버로 전송시 할당되는 변수 이름-->
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+<input type="submit" balue="Vote" />
+<a href="{% url 'polls:index' %}">return</a>
+</form>
